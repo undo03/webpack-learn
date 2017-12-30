@@ -7,7 +7,7 @@ import reactImage from './asset/img/react.png'; //引入图片
 
 import './common/reset.scss';
 
-import App from './views/index.js'
+import App from './views';
 
 const aObj = {a: 1, b: 2};
 console.log({...aObj,c:1});
