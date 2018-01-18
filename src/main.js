@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter,Route} from 'react-router-dom';
+import {Provider} from 'react-redux';
+
+import store from './store';
+import './common/reset.less';
 
 import reactImage from './asset/img/react.png'; //引入图片
 // import 'font-awesome/css/font-awesome.css'; // 引入字体文件的css样式
 
+import Router from './routers';
 
-import './common/reset.scss';
-
-import App from './views';
-
-const aObj = {a: 1, b: 2};
-console.log({...aObj,c:1});
+window.store = store;
 
 ReactDOM.render(
-    <App/>,
+    <Provider store={store}>
+        <Router />  
+    </Provider>,
     document.getElementById('root')
 );
