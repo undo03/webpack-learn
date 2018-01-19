@@ -1,18 +1,14 @@
 import React from "react";
 import { HashRouter,BrowserRouter,Route, Switch } from "react-router-dom";
-// import asyncComponent from "./asyncComponent";
 
-// const AsyncHome = asyncComponent(() => import("../views/Home"));
-// const AsyncProfile = asyncComponent(() => import('../views/Profile'));
-import Home from '../views/Home';
-import Profile from '../views/Profile';
+import {renderRoutes} from 'react-router-config';
+import router from './router';
+const routers = [...router];
 
-export default () =>
-  <HashRouter>
-    <Switch>
-      <Route path="/" exact component={Home}/>
-      <Route path="/profile" component={Profile}/>
-    </Switch>
-  </HashRouter> 
-  
-;
+console.log(router);
+export default  () =>
+<HashRouter>
+  <Switch>
+    {renderRoutes(routers)}
+  </Switch>
+</HashRouter> 

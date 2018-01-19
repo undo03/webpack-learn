@@ -1,4 +1,4 @@
-// import 'whatwg-fetch';
+import 'whatwg-fetch';
 // import React from 'react';
 // import Cookie from 'js-cookie';
 

@@ -15,7 +15,7 @@ export default class Header extends Component {
         // 以下使用的样式是模块的css样式
         return (
             <div className={style.header}>
-                Wellcome to my website
+                {this.props.title}
             </div>
         )
     }

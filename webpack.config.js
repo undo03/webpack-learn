@@ -2,10 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        main: ['whatwg-fetch', 'babel-polyfill', './src/main.js'],
+        // vendor: ["react", "react-dom", "react-router"]
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: "assets/js/main.js",
+        // filename: "assets/js/main.js",
+        filename: 'assets/js/[name].js',
+        chunkFilename: '[name].chunk.js',
         publicPath: "/", // webpack打包出来的资源的基础目录设置，必须以 / 结尾 ，一般直接一个 /
     },
     plugins: [
@@ -85,7 +90,7 @@ module.exports = {
                 use: [{
                     loader: "url-loader",
                     options: {
-                        limit: 10000, //这个单位是kb 即图片小于10kb则编译成字符串，否则使用file-loader打包地址，好处： 对于小图片可以只请求一次，可减少http请求
+                        limit: 8192, //这个单位是kb 即图片小于8kb则编译成字符串，否则使用file-loader打包地址，好处： 对于小图片可以只请求一次，可减少http请求
                         name: 'assets/img/[name].[ext]', // 打包到publicPath/下的文件夹中
                     }
                 }],
