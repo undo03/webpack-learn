@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const multi = require('multi-loader');
+
 module.exports = {
     entry: {
         main: ['whatwg-fetch', 'babel-polyfill', './src/main.js'],
@@ -9,9 +11,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         // filename: "assets/js/main.js",
-        filename: 'assets/js/[name].js',
+        filename: '[name].js',
         chunkFilename: '[name].chunk.js',
-        publicPath: "/", // webpack打包出来的资源的基础目录设置，必须以 / 结尾 ，一般直接一个 /
+        // publicPath: "/", // webpack打包出来的资源的基础目录设置，必须以 / 结尾 ，一般直接一个 /
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -87,14 +89,15 @@ module.exports = {
             //  file-loader 会把资源移动到输出目录，返回最终使用的url
             {
                 test: /\.(jpg|png|gif|jpeg)$/,
-                use: [{
-                    loader: "url-loader",
-                    options: {
-                        limit: 8192, //这个单位是kb 即图片小于8kb则编译成字符串，否则使用file-loader打包地址，好处： 对于小图片可以只请求一次，可减少http请求
-                        name: 'assets/img/[name].[ext]', // 打包到publicPath/下的文件夹中
+                use: [
+                    
+                    {
+                        loader: multi(
+                            'url-loader?limit=8192&name=assets/img/[name].[ext].webp!webp-loader?{quality: 75}',
+                            'url-loader?limit=8192&name=assets/img/[name].[ext]'
+                        )
                     }
-                }],
-                // use: ['file-loader'],
+                ],
             },
             // file-loader处理字体文件的引入
             {

@@ -1,6 +1,6 @@
 
 project.xcworkspace
-
+dist/
 build/
 .idea
 local.properties
